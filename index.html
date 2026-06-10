@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>DigiStore — Produk Digital Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#f8f9fa;--card:#fff;--text:#1a1a2e;--muted:#6b7280;
+  --accent:#00b14f;--accent-dark:#009944;--accent-light:#e8faf0;
+  --danger:#ef4444;--warn:#f59e0b;--info:#3b82f6;
+  --border:#e5e7eb;--shadow:0 1px 3px rgba(0,0,0,.08);
+  --shadow-lg:0 8px 30px rgba(0,0,0,.12);
+  --radius:12px;--radius-sm:8px;
+  --font:'Plus Jakarta Sans',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+button{font-family:var(--font);cursor:pointer;border:none;outline:none}
+input,select{font-family:var(--font);outline:none}
+::selection{background:var(--accent);color:#fff}
+
+/* ═══ HEADER ═══ */
+.header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.header-inner{max-width:1200px;margin:0 auto;padding:0 20px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px;color:var(--accent)}
+.logo svg{width:32px;height:32px}
+.nav{display:flex;align-items:center;gap:24px}
+.nav a{font-size:14px;font-weight:500;color:var(--muted);transition:.2s}
+.nav a:hover{color:var(--accent)}
+.cart-btn{position:relative;background:var(--accent);color:#fff;padding:10px 20px;border-radius:50px;font-weight:600;font-size:14px;display:flex;align-items:center;gap:8px;transition:.2s}
+.cart-btn:hover{background:var(--accent-dark);transform:translateY(-1px)}
+.cart-badge{position:absolute;top:-6px;right:-6px;background:var(--danger);color:#fff;width:20px;height:20px;border-radius:50%;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:700}
+.cart-badge:empty{display:none}
+.mobile-menu{display:none;background:none;font-size:24px;padding:8px}
+
+/* ═══ HERO ═══ */
+.hero{background:linear-gradient(135deg,#00b14f 0%,#009944 50%,#007a3a 100%);color:#fff;padding:80px 20px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 40%,rgba(255,255,255,.1) 0%,transparent 60%);animation:heroGlow 8s ease-in-out infinite}
+@keyframes heroGlow{0%,100%{transform:translate(0,0)}50%{transform:translate(5%,3%)}}
+.hero h1{font-size:clamp(32px,5vw,56px);font-weight:800;letter-spacing:-.02em;margin-bottom:16px;position:relative}
+.hero p{font-size:clamp(16px,2vw,20px);opacity:.9;max-width:600px;margin:0 auto 32px;position:relative}
+.hero-stats{display:flex;justify-content:center;gap:40px;position:relative}
+.hero-stat{text-align:center}
+.hero-stat .num{font-size:28px;font-weight:800}
+.hero-stat .label{font-size:13px;opacity:.8}
+
+/* ═══ PRODUCTS ═══ */
+.section{max-width:1200px;margin:0 auto;padding:60px 20px}
+.section-title{font-size:28px;font-weight:800;margin-bottom:8px;letter-spacing:-.02em}
+.section-desc{color:var(--muted);margin-bottom:32px}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.product-card{background:var(--card);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);transition:.3s;position:relative}
+.product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.product-badge{position:absolute;top:12px;left:12px;padding:4px 10px;border-radius:50px;font-size:11px;font-weight:700;letter-spacing:.03em;z-index:2}
+.badge-hot{background:#ef4444;color:#fff}
+.badge-new{background:var(--accent);color:#fff}
+.badge-sale{background:var(--warn);color:#fff}
+.product-img{width:100%;height:200px;background:linear-gradient(135deg,#e8faf0,#d1fae5);display:flex;align-items:center;justify-content:center;font-size:64px}
+.product-info{padding:16px}
+.product-cat{font-size:12px;color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.product-name{font-size:16px;font-weight:700;margin-bottom:6px;line-height:1.3}
+.product-desc{font-size:13px;color:var(--muted);margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.product-meta{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.product-rating{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--warn)}
+.product-sold{font-size:12px;color:var(--muted)}
+.product-footer{display:flex;align-items:center;justify-content:space-between}
+.product-price{font-size:20px;font-weight:800;color:var(--accent)}
+.product-price .old{font-size:13px;color:var(--muted);text-decoration:line-through;margin-left:8px;font-weight:400}
+.add-btn{background:var(--accent);color:#fff;padding:10px 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;transition:.2s;display:flex;align-items:center;gap:6px}
+.add-btn:hover{background:var(--accent-dark)}
+.add-btn:active{transform:scale(.95)}
+
+/* ═══ CATEGORIES ═══ */
+.cats{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch}
+.cats::-webkit-scrollbar{display:none}
+.cat-chip{padding:10px 20px;border-radius:50px;border:1.5px solid var(--border);font-size:14px;font-weight:500;white-space:nowrap;transition:.2s;background:var(--card)}
+.cat-chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.cat-chip:hover:not(.active){border-color:var(--accent);color:var(--accent)}
+
+/* ═══ CART DRAWER ═══ */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;opacity:0;pointer-events:none;transition:.3s}
+.overlay.open{opacity:1;pointer-events:all}
+.cart-drawer{position:fixed;top:0;right:-420px;width:400px;max-width:100vw;height:100vh;background:var(--card);z-index:201;transition:.35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-8px 0 30px rgba(0,0,0,.15)}
+.cart-drawer.open{right:0}
+.cart-header{padding:20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.cart-header h3{font-size:18px;font-weight:700}
+.close-cart{background:none;font-size:24px;color:var(--muted);padding:4px}
+.cart-items{flex:1;overflow-y:auto;padding:16px}
+.cart-empty{text-align:center;padding:60px 20px;color:var(--muted)}
+.cart-empty svg{width:64px;margin-bottom:16px;opacity:.4}
+.cart-item{display:flex;gap:12px;padding:12px;border-radius:var(--radius-sm);border:1px solid var(--border);margin-bottom:10px;position:relative}
+.cart-item-img{width:60px;height:60px;border-radius:var(--radius-sm);background:linear-gradient(135deg,#e8faf0,#d1fae5);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
+.cart-item-info{flex:1;min-width:0}
+.cart-item-name{font-size:14px;font-weight:600;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cart-item-price{font-size:15px;font-weight:700;color:var(--accent)}
+.cart-item-qty{display:flex;align-items:center;gap:8px;margin-top:6px}
+.qty-btn{width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:var(--card);font-size:16px;display:flex;align-items:center;justify-content:center;transition:.2s}
+.qty-btn:hover{border-color:var(--accent);color:var(--accent)}
+.qty-num{font-size:14px;font-weight:600;min-width:20px;text-align:center}
+.remove-item{position:absolute;top:8px;right:8px;background:none;color:var(--muted);font-size:16px;padding:2px;transition:.2s}
+.remove-item:hover{color:var(--danger)}
+.cart-footer{border-top:1px solid var(--border);padding:20px}
+.cart-total{display:flex;justify-content:space-between;font-size:18px;font-weight:700;margin-bottom:16px}
+.checkout-btn{width:100%;padding:16px;background:var(--accent);color:#fff;border-radius:var(--radius-sm);font-size:16px;font-weight:700;transition:.2s}
+.checkout-btn:hover{background:var(--accent-dark)}
+.checkout-btn:disabled{background:#ccc;cursor:not-allowed}
+
+/* ═══ CHECKOUT MODAL ═══ */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.3s;padding:20px}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--card);border-radius:var(--radius);width:100%;max-width:520px;max-height:90vh;overflow-y:auto;transform:translateY(20px);transition:.35s cubic-bezier(.4,0,.2,1)}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal-header{padding:24px 24px 0;display:flex;justify-content:space-between;align-items:center}
+.modal-header h3{font-size:20px;font-weight:700}
+.modal-close{background:none;font-size:24px;color:var(--muted);padding:4px}
+.modal-body{padding:24px}
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--text)}
+.form-input{width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:14px;transition:.2s;background:var(--card)}
+.form-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,177,79,.1)}
+.form-input::placeholder{color:#ccc}
+.payment-methods{display:grid;gap:10px;margin-bottom:20px}
+.pay-method{display:flex;align-items:center;gap:12px;padding:14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;transition:.2s}
+.pay-method:hover,.pay-method.selected{border-color:var(--accent);background:var(--accent-light)}
+.pay-method.selected{box-shadow:0 0 0 1px var(--accent)}
+.pay-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;flex-shrink:0}
+.pay-info{flex:1}
+.pay-name{font-size:14px;font-weight:600}
+.pay-desc{font-size:12px;color:var(--muted)}
+.pay-radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.2s}
+.pay-method.selected .pay-radio{border-color:var(--accent)}
+.pay-method.selected .pay-radio::after{content:'';width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.order-summary{background:var(--bg);border-radius:var(--radius-sm);padding:16px;margin-bottom:20px}
+.order-line{display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px}
+.order-line:last-child{margin-bottom:0;border-top:1px solid var(--border);padding-top:8px;font-weight:700;font-size:16px}
+.pay-btn{width:100%;padding:16px;background:var(--accent);color:#fff;border-radius:var(--radius-sm);font-size:16px;font-weight:700;transition:.2s}
+.pay-btn:hover{background:var(--accent-dark)}
+.pay-btn:disabled{background:#ccc;cursor:not-allowed}
+
+/* ═══ SUCCESS ═══ */
+.success-view{text-align:center;padding:40px 20px}
+.success-icon{width:80px;height:80px;border-radius:50%;background:var(--accent-light);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:40px;animation:successPop .5s cubic-bezier(.17,.89,.32,1.28)}
+@keyframes successPop{0%{transform:scale(0)}100%{transform:scale(1)}}
+.success-view h3{font-size:24px;font-weight:800;margin-bottom:8px}
+.success-view p{color:var(--muted);margin-bottom:24px}
+.order-id{font-family:var(--mono);font-size:14px;background:var(--bg);padding:8px 16px;border-radius:var(--radius-sm);display:inline-block;margin-bottom:24px}
+.payment-detail{background:var(--bg);border-radius:var(--radius-sm);padding:20px;margin-bottom:24px;text-align:left}
+.payment-detail h4{font-size:14px;font-weight:600;margin-bottom:12px}
+.va-number{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--accent);background:var(--accent-light);padding:12px;border-radius:var(--radius-sm);text-align:center;margin-bottom:12px;letter-spacing:.05em}
+.copy-btn{background:var(--accent);color:#fff;padding:8px 16px;border-radius:6px;font-size:13px;font-weight:600;transition:.2s;width:100%}
+.copy-btn:hover{background:var(--accent-dark)}
+.qris-box{background:#fff;border-radius:var(--radius-sm);padding:20px;text-align:center;margin-bottom:12px}
+.qris-box canvas{margin:0 auto}
+.countdown{font-size:14px;color:var(--danger);font-weight:600;margin-top:12px}
+.done-btn{width:100%;padding:14px;background:var(--accent);color:#fff;border-radius:var(--radius-sm);font-size:15px;font-weight:600;transition:.2s;margin-top:12px}
+
+/* ═══ FOOTER ═══ */
+.footer{background:var(--text);color:#fff;padding:48px 20px 24px;margin-top:60px}
+.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+.footer-brand{font-size:22px;font-weight:800;margin-bottom:12px;color:var(--accent)}
+.footer-desc{font-size:14px;color:#9ca3af;line-height:1.7}
+.footer h4{font-size:14px;font-weight:600;margin-bottom:16px;color:#d1d5db}
+.footer a{display:block;font-size:14px;color:#9ca3af;margin-bottom:10px;transition:.2s}
+.footer a:hover{color:var(--accent)}
+.footer-bottom{max-width:1200px;margin:0 auto;padding-top:24px;border-top:1px solid #374151;text-align:center;font-size:13px;color:#6b7280}
+
+/* ═══ TOAST ═══ */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--text);color:#fff;padding:14px 24px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;z-index:400;transition:.35s cubic-bezier(.4,0,.2,1);white-space:nowrap;box-shadow:var(--shadow-lg)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:768px){
+  .nav{display:none}
+  .mobile-menu{display:block}
+  .hero{padding:50px 20px}
+  .hero-stats{gap:24px}
+  .hero-stat .num{font-size:22px}
+  .products-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .product-img{height:140px;font-size:48px}
+  .product-info{padding:12px}
+  .product-name{font-size:14px}
+  .product-price{font-size:16px}
+  .add-btn{padding:8px 12px;font-size:12px}
+  .cart-drawer{width:100vw}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:24px}
+  .section{padding:40px 16px}
+  .modal{max-width:100%}
+}
+@media(max-width:480px){
+  .products-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .product-img{height:120px;font-size:40px}
+  .product-info{padding:10px}
+  .product-name{font-size:13px}
+  .product-desc{display:none}
+  .product-footer{flex-direction:column;align-items:flex-start;gap:8px}
+  .add-btn{width:100%;justify-content:center}
+  .footer-inner{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#00b14f"/><path d="M8 16l5 5 11-11" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      DigiStore
+    </a>
+    <nav class="nav">
+      <a href="#products">Produk</a>
+      <a href="#categories">Kategori</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <button class="cart-btn" onclick="toggleCart()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Keranjang
+      <span class="cart-badge" id="cartBadge"></span>
+    </button>
+    <button class="mobile-menu" onclick="toggleCart()">☰</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Produk Digital<br>Premium Indonesia</h1>
+  <p>Template, API Key, Lisensi Software, dan aset digital lainnya. Bayar instan via QRIS, GoPay, DANA, atau Transfer Bank.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">500+</div><div class="label">Produk</div></div>
+    <div class="hero-stat"><div class="num">10K+</div><div class="label">Pembeli</div></div>
+    <div class="hero-stat"><div class="num">4.9★</div><div class="label">Rating</div></div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="section" id="categories">
+  <div class="section-title">Kategori</div>
+  <div class="section-desc">Temukan produk digital sesuai kebutuhanmu</div>
+  <div class="cats">
+    <button class="cat-chip active" onclick="filterCat('all')">🏷️ Semua</button>
+    <button class="cat-chip" onclick="filterCat('template')">🎨 Template</button>
+    <button class="cat-chip" onclick="filterCat('api')">🔑 API Key</button>
+    <button class="cat-chip" onclick="filterCat('license')">📄 Lisensi</button>
+    <button class="cat-chip" onclick="filterCat('ebook')">📚 E-Book</button>
+    <button class="cat-chip" onclick="filterCat('tool')">🛠️ Tools</button>
+    <button class="cat-chip" onclick="filterCat('asset')">📦 Aset</button>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="section" id="products">
+  <div class="section-title">Produk Terlaris 🔥</div>
+  <div class="section-desc">Produk digital paling populer bulan ini</div>
+  <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">DigiStore</div>
+      <p class="footer-desc">Platform produk digital premium Indonesia. Bayar instan, langsung download. Aman dan terpercaya.</p>
+    </div>
+    <div>
+      <h4>Produk</h4>
+      <a href="#">Template Website</a>
+      <a href="#">API Key</a>
+      <a href="#">Lisensi Software</a>
+      <a href="#">E-Book</a>
+    </div>
+    <div>
+      <h4>Bantuan</h4>
+      <a href="#">FAQ</a>
+      <a href="#">Cara Beli</a>
+      <a href="#">Hubungi Kami</a>
+      <a href="#">Refund Policy</a>
+    </div>
+    <div>
+      <h4>Metode Bayar</h4>
+      <a href="#">QRIS</a>
+      <a href="#">GoPay / OVO / DANA</a>
+      <a href="#">Transfer Bank</a>
+      <a href="#">Virtual Account</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 DigiStore. All rights reserved. Built with ❤️ in Indonesia</div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="overlay" id="overlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3>Keranjang Belanja</h3>
+    <button class="close-cart" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal">Rp 0</span>
+    </div>
+    <button class="checkout-btn" id="checkoutBtn" onclick="openCheckout()" disabled>Checkout Sekarang</button>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-overlay" id="checkoutModal">
+  <div class="modal">
+    <!-- Form View -->
+    <div id="formView">
+      <div class="modal-header">
+        <h3>Checkout</h3>
+        <button class="modal-close" onclick="closeCheckout()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Nama Lengkap</label>
+          <input class="form-input" id="custName" placeholder="Masukkan nama lengkap">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input class="form-input" id="custEmail" type="email" placeholder="email@contoh.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">No. WhatsApp</label>
+          <input class="form-input" id="custPhone" placeholder="08xxxxxxxxxx">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Metode Pembayaran</label>
+          <div class="payment-methods" id="payMethods">
+            <div class="pay-method selected" data-method="qris" onclick="selectPay(this)">
+              <div class="pay-icon" style="background:#e8faf0;color:#00b14f">QR</div>
+              <div class="pay-info"><div class="pay-name">QRIS</div><div class="pay-desc">Scan QR dari semua e-wallet & bank</div></div>
+              <div class="pay-radio"></div>
+            </div>
+            <div class="pay-method" data-method="gopay" onclick="selectPay(this)">
+              <div class="pay-icon" style="background:#e8f5e9;color:#00aa13">GP</div>
+              <div class="pay-info"><div class="pay-name">GoPay</div><div class="pay-desc">Bayar langsung dari GoPay</div></div>
+              <div class="pay-radio"></div>
+            </div>
+            <div class="pay-method" data-method="dana" onclick="selectPay(this)">
+              <div class="pay-icon" style="background:#e3f2fd;color:#108ee9">DN</div>
+              <div class="pay-info"><div class="pay-name">DANA</div><div class="pay-desc">Bayar dari dompet DANA</div></div>
+              <div class="pay-radio"></div>
+            </div>
+            <div class="pay-method" data-method="va_bca" onclick="selectPay(this)">
+              <div class="pay-icon" style="background:#fff3e0;color:#003d79">BC</div>
+              <div class="pay-info"><div class="pay-name">BCA Virtual Account</div><div class="pay-desc">Transfer ke nomor VA BCA</div></div>
+              <div class="pay-radio"></div>
+            </div>
+            <div class="pay-method" data-method="va_bni" onclick="selectPay(this)">
+              <div class="pay-icon" style="background:#fff8e1;color:#f36f21">BN</div>
+              <div class="pay-info"><div class="pay-name">BNI Virtual Account</div><div class="pay-desc">Transfer ke nomor VA BNI</div></div>
+              <div class="pay-radio"></div>
+            </div>
+            <div class="pay-method" data-method="va_mandiri" onclick="selectPay(this)">
+              <div class="pay-icon" style="background:#e8eaf6;color:#003d79">MD</div>
+              <div class="pay-info"><div class="pay-name">Mandiri Virtual Account</div><div class="pay-desc">Transfer ke nomor VA Mandiri</div></div>
+              <div class="pay-radio"></div>
+            </div>
+            <div class="pay-method" data-method="ewallet_ovo" onclick="selectPay(this)">
+              <div class="pay-icon" style="background:#ede7f6;color:#4c3494">OV</div>
+              <div class="pay-info"><div class="pay-name">OVO</div><div class="pay-desc">Bayar dari aplikasi OVO</div></div>
+              <div class="pay-radio"></div>
+            </div>
+          </div>
+        </div>
+        <div class="order-summary" id="orderSummary"></div>
+        <button class="pay-btn" id="payBtn" onclick="processPayment()">Bayar Sekarang</button>
+      </div>
+    </div>
+    <!-- Success View -->
+    <div id="successView" class="success-view" style="display:none">
+      <div class="success-icon">✓</div>
+      <h3>Pembayaran Berhasil!</h3>
+      <p>Produk digital kamu sudah siap di-download</p>
+      <div class="order-id" id="orderId"></div>
+      <div class="payment-detail" id="paymentDetail"></div>
+      <button class="done-btn" onclick="closeCheckout();location.reload()">Selesai</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══ PRODUCT DATA ═══
+const PRODUCTS = [
+  {id:1,name:"Template Landing Page Pro",cat:"template",price:149000,oldPrice:299000,emoji:"🚀",rating:4.9,sold:1243,badge:"hot",desc:"Template HTML/CSS responsif, 10+ halaman, dark mode, animasi GSAP"},
+  {id:2,name:"API Key GPT-4 Unlimited",cat:"api",price:89000,oldPrice:null,emoji:"🤖",rating:4.8,sold:3891,badge:"hot",desc:"Akses GPT-4 tanpa limit 30 hari. Support chat, vision, function calling"},
+  {id:3,name:"E-Book Digital Marketing",cat:"ebook",price:79000,oldPrice:150000,emoji:"📘",rating:4.7,sold:892,badge:"sale",desc:"Panduan lengkap marketing digital 2026. 200+ halaman, studi kasus nyata"},
+  {id:4,name:"Figma UI Kit Premium",cat:"asset",price:199000,oldPrice:399000,emoji:"🎨",rating:4.9,sold:567,badge:"new",desc:"500+ komponen UI, 50+ halaman siap pakai, auto-layout, design system"},
+  {id:5,name:"Lisensi Antivirus 1 Tahun",cat:"license",price:125000,oldPrice:250000,emoji:"🛡️",rating:4.6,sold:2134,badge:"sale",desc:"Proteksi real-time, VPN premium, password manager. 1 lisensi 5 device"},
+  {id:6,name:"Script Bot Trading Crypto",cat:"tool",price:349000,oldPrice:699000,emoji:"📈",rating:4.5,sold:456,badge:"hot",desc:"Bot auto trading Binance/Bybit. Backtest 6 bulan, ROI avg 15%/bulan"},
+  {id:7,name:"Template Notion Premium",cat:"template",price:49000,oldPrice:99000,emoji:"📋",rating:4.8,sold:1678,badge:"new",desc:"Template productivity, project management, finance tracker. 20+ template"},
+  {id:8,name:"API Key Claude Pro",cat:"api",price:99000,oldPrice:null,emoji:"🧠",rating:4.9,sold:2456,badge:"hot",desc:"Akses Claude 3.5 Sonnet unlimited 30 hari. API key langsung aktif"},
+  {id:9,name:"E-Book Belajar Python",cat:"ebook",price:59000,oldPrice:120000,emoji:"🐍",rating:4.7,sold:1234,badge:"sale",desc:"Dari nol sampai mahir. 300+ halaman, 50+ latihan, bonus source code"},
+  {id:10,name:"Canva Pro 1 Bulan",cat:"license",price:15000,oldPrice:199000,emoji:"🎯",rating:4.8,sold:5678,badge:"hot",desc:"Akses penuh Canva Pro. Template premium, background remover, resize"},
+  {id:11,name:"Bundle Icon 10K+",cat:"asset",price:69000,oldPrice:199000,emoji:"✨",rating:4.6,sold:345,badge:"new",desc:"10.000+ icon SVG/PNG. Kategori lengkap: business, tech, medical, dll"},
+  {id:12,name:"SEO Audit Tool License",cat:"tool",price:179000,oldPrice:349000,emoji:"🔍",rating:4.5,sold:189,badge:"sale",desc:"Analisis SEO lengkap: backlink, keyword, competitor. 1 lisensi 1 tahun"},
+];
+
+// ═══ STATE ═══
+let cart = JSON.parse(localStorage.getItem('digi_cart') || '[]');
+let selectedPay = 'qris';
+let currentFilter = 'all';
+
+// ═══ RENDER PRODUCTS ═══
+function renderProducts(filter) {
+  const grid = document.getElementById('productsGrid');
+  const items = filter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.cat === filter);
+  grid.innerHTML = items.map(p => `
+    <div class="product-card" data-cat="${p.cat}">
+      ${p.badge ? `<span class="product-badge badge-${p.badge}">${p.badge === 'hot' ? '🔥 HOT' : p.badge === 'new' ? '✨ NEW' : '💰 SALE'}</span>` : ''}
+      <div class="product-img">${p.emoji}</div>
+      <div class="product-info">
+        <div class="product-cat">${p.cat}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.desc}</div>
+        <div class="product-meta">
+          <span class="product-rating">★ ${p.rating}</span>
+          <span class="product-sold">${p.sold.toLocaleString()} terjual</span>
+        </div>
+        <div class="product-footer">
+          <div class="product-price">
+            Rp ${p.price.toLocaleString('id')}
+            ${p.oldPrice ? `<span class="old">Rp ${p.oldPrice.toLocaleString('id')}</span>` : ''}
+          </div>
+          <button class="add-btn" onclick="addToCart(${p.id})">+ Keranjang</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterCat(cat) {
+  currentFilter = cat;
+  document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+  event.target.classList.add('active');
+  renderProducts(cat);
+}
+
+// ═══ CART ═══
+function addToCart(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  const existing = cart.find(c => c.id === id);
+  if (existing) { existing.qty++; }
+  else { cart.push({ ...p, qty: 1 }); }
+  saveCart();
+  showToast(`${p.name} ditambahkan ke keranjang ✓`);
+  updateBadge();
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(c => c.id !== id);
+  saveCart();
+  renderCart();
+  updateBadge();
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(c => c.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) { removeFromCart(id); return; }
+  saveCart();
+  renderCart();
+}
+
+function saveCart() {
+  localStorage.setItem('digi_cart', JSON.stringify(cart));
+}
+
+function updateBadge() {
+  const count = cart.reduce((s, c) => s + c.qty, 0);
+  document.getElementById('cartBadge').textContent = count || '';
+  document.getElementById('checkoutBtn').disabled = count === 0;
+}
+
+function renderCart() {
+  const el = document.getElementById('cartItems');
+  const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
+
+  if (cart.length === 0) {
+    el.innerHTML = `<div class="cart-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><p>Keranjang kosong</p></div>`;
+  } else {
+    el.innerHTML = cart.map(c => `
+      <div class="cart-item">
+        <div class="cart-item-img">${c.emoji}</div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${c.name}</div>
+          <div class="cart-item-price">Rp ${(c.price * c.qty).toLocaleString('id')}</div>
+          <div class="cart-item-qty">
+            <button class="qty-btn" onclick="changeQty(${c.id},-1)">−</button>
+            <span class="qty-num">${c.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${c.id},1)">+</button>
+          </div>
+        </div>
+        <button class="remove-item" onclick="removeFromCart(${c.id})">✕</button>
+      </div>
+    `).join('');
+  }
+
+  document.getElementById('cartTotal').textContent = `Rp ${total.toLocaleString('id')}`;
+  document.getElementById('checkoutBtn').disabled = cart.length === 0;
+}
+
+function toggleCart() {
+  document.getElementById('cartDrawer').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('open');
+  renderCart();
+}
+
+// ═══ CHECKOUT ═══
+function openCheckout() {
+  if (cart.length === 0) return;
+  toggleCart();
+  setTimeout(() => {
+    document.getElementById('checkoutModal').classList.add('open');
+    document.getElementById('formView').style.display = '';
+    document.getElementById('successView').style.display = 'none';
+    renderOrderSummary();
+  }, 300);
+}
+
+function closeCheckout() {
+  document.getElementById('checkoutModal').classList.remove('open');
+}
+
+function selectPay(el) {
+  document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedPay = el.dataset.method;
+}
+
+function renderOrderSummary() {
+  const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
+  const admin = 2500;
+  const el = document.getElementById('orderSummary');
+  el.innerHTML = `
+    ${cart.map(c => `<div class="order-line"><span>${c.name} ×${c.qty}</span><span>Rp ${(c.price * c.qty).toLocaleString('id')}</span></div>`).join('')}
+    <div class="order-line"><span>Biaya Admin</span><span>Rp ${admin.toLocaleString('id')}</span></div>
+    <div class="order-line"><span>Total</span><span>Rp ${(total + admin).toLocaleString('id')}</span></div>
+  `;
+}
+
+function processPayment() {
+  const name = document.getElementById('custName').value.trim();
+  const email = document.getElementById('custEmail').value.trim();
+  const phone = document.getElementById('custPhone').value.trim();
+
+  if (!name || !email || !phone) {
+    showToast('⚠️ Lengkapi semua data!');
+    return;
+  }
+
+  const btn = document.getElementById('payBtn');
+  btn.disabled = true;
+  btn.textContent = 'Memproses...';
+
+  // Simulate payment processing
+  setTimeout(() => {
+    const orderId = 'DS-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase();
+    const total = cart.reduce((s, c) => s + c.price * c.qty, 0) + 2500;
+
+    document.getElementById('orderId').textContent = orderId;
+    document.getElementById('formView').style.display = 'none';
+    document.getElementById('successView').style.display = '';
+
+    // Generate payment detail based on method
+    const detail = document.getElementById('paymentDetail');
+    if (selectedPay.startsWith('va_')) {
+      const bank = selectedPay.replace('va_', '').toUpperCase();
+      const vaNum = '88' + Math.floor(Math.random() * 1e12);
+      detail.innerHTML = `
+        <h4>Transfer ke Virtual Account ${bank}</h4>
+        <div class="va-number">${vaNum}</div>
+        <div class="order-line"><span>Bank</span><span>${bank}</span></div>
+        <div class="order-line"><span>Total</span><span>Rp ${total.toLocaleString('id')}</span></div>
+        <div class="order-line"><span>Atas Nama</span><span>${name}</span></div>
+        <button class="copy-btn" onclick="navigator.clipboard.writeText('${vaNum}');this.textContent='Tersalin ✓'">Salin Nomor VA</button>
+        <div class="countdown">Bayar dalam 23:59:59</div>
+      `;
+    } else if (selectedPay === 'qris') {
+      detail.innerHTML = `
+        <h4>Scan QRIS untuk Bayar</h4>
+        <div class="qris-box">
+          <svg width="200" height="200" viewBox="0 0 200 200"><rect width="200" height="200" fill="#fff"/>
+          ${generateQRPattern()}
+          <text x="100" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#00b14f">Rp ${total.toLocaleString('id')}</text>
+          <text x="100" y="125" text-anchor="middle" font-size="10" fill="#666">Scan untuk bayar</text></svg>
+        </div>
+        <div class="order-line"><span>Total</span><span>Rp ${total.toLocaleString('id')}</span></div>
+        <div class="countdown">QR berlaku 15 menit</div>
+      `;
+    } else {
+      const ewName = selectedPay === 'gopay' ? 'GoPay' : selectedPay === 'dana' ? 'DANA' : 'OVO';
+      detail.innerHTML = `
+        <h4>Bayar via ${ewName}</h4>
+        <div class="order-line"><span>Total</span><span>Rp ${total.toLocaleString('id')}</span></div>
+        <div class="order-line"><span>Status</span><span style="color:#00b14f;font-weight:600">Menunggu Pembayaran</span></div>
+        <p style="font-size:13px;color:#666;margin-top:12px">Buka aplikasi ${ewName} untuk menyelesaikan pembayaran. Notifikasi akan dikirim ke WhatsApp.</p>
+      `;
+    }
+
+    // Clear cart
+    cart = [];
+    saveCart();
+    updateBadge();
+    btn.disabled = false;
+    btn.textContent = 'Bayar Sekarang';
+  }, 2000);
+}
+
+function generateQRPattern() {
+  let svg = '';
+  const size = 8;
+  for (let y = 0; y < 20; y++) {
+    for (let x = 0; x < 20; x++) {
+      if (Math.random() > 0.5 || (x < 3 && y < 3) || (x > 16 && y < 3) || (x < 3 && y > 16)) {
+        svg += `<rect x="${40 + x*size}" y="${30 + y*size}" width="${size}" height="${size}" fill="#000" rx="1"/>`;
+      }
+    }
+  }
+  return svg;
+}
+
+// ═══ TOAST ═══
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ═══ INIT ═══
+renderProducts('all');
+updateBadge();
+renderCart();
+</script>
+</body>
+</html>
